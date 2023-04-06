@@ -1,7 +1,11 @@
 package cz.dev.car;
 
 public class CarService {
-	private final CarDao carDao = new CarDao();
+	private final CarDao carDao;
+
+	public CarService(CarDao carDao) {
+		this.carDao = carDao;
+	}
 
 	public Car[] getAllCars() {
 		return carDao.getAllCars();

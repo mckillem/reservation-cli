@@ -1,9 +1,14 @@
 package cz.dev;
 
 import cz.dev.booking.Booking;
+import cz.dev.booking.BookingDao;
 import cz.dev.booking.BookingService;
 import cz.dev.car.Car;
+import cz.dev.car.CarDao;
+import cz.dev.car.CarService;
 import cz.dev.user.User;
+import cz.dev.user.UserDao;
+import cz.dev.user.UserFileDataAccessService;
 import cz.dev.user.UserService;
 
 import java.util.Scanner;
@@ -11,8 +16,15 @@ import java.util.UUID;
 
 public class Main {
 	public static void main(String[] args) {
-		UserService userService = new UserService();
-		BookingService bookingService = new BookingService();
+
+		UserDao userDao = new UserFileDataAccessService();
+		UserService userService = new UserService(userDao);
+
+		BookingDao bookingDao = new BookingDao();
+		CarDao carDao = new CarDao();
+
+		CarService carService = new CarService(carDao);
+		BookingService bookingService = new BookingService(bookingDao, carService);
 
 		Scanner scanner = new Scanner(System.in);
 
