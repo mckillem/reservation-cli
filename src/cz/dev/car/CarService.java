@@ -1,5 +1,9 @@
 package cz.dev.car;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class CarService {
 	private final CarDao carDao;
 
@@ -7,7 +11,7 @@ public class CarService {
 		this.carDao = carDao;
 	}
 
-	public Car[] getAllCars() {
+	public List<Car> getAllCars() {
 		return carDao.getAllCars();
 	}
 
@@ -20,32 +24,18 @@ public class CarService {
 		throw new IllegalStateException(String.format("A car with a registration number %s not found", registrationNumber));
 	}
 
-	public Car[] getAllElectricCars() {
-		int electricCarsCount = 0;
+	public List<Car> getAllElectricCars() {
+		List<Car> cars = getAllCars();
 
-		Car[] cars = getAllCars();
-
-		if (cars.length == 0) {
-			return new Car[0];
+		if (cars.size() == 0) {
+			return Collections.emptyList();
 		}
+
+		List<Car> electricCars = new ArrayList<>();
 
 		for (Car car : cars) {
 			if (car.isElectric()) {
-				electricCarsCount++;
-			}
-		}
-
-		if (electricCarsCount == 0) {
-			return new Car[0];
-		}
-
-		Car[] electricCars = new Car[electricCarsCount];
-
-		int index = 0;
-
-		for (int i = 0; i < cars.length; i++) {
-			if (cars[i].isElectric()) {
-				electricCars[index++] = cars[i];
+				electricCars.add(car);
 			}
 		}
 

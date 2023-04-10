@@ -1,5 +1,7 @@
 package cz.dev.user;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class UserArrayDataAccessService implements UserDao{
@@ -14,7 +16,7 @@ public class UserArrayDataAccessService implements UserDao{
 	}
 
 	@Override
-	public User[] getUsers() {
-		return users;
+	public List<User> getUsers() {
+		return Arrays.asList(users);
 	}
 }
