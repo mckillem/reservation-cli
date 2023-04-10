@@ -3,6 +3,7 @@ package cz.dev.car;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CarService {
 	private final CarDao carDao;
@@ -25,19 +26,10 @@ public class CarService {
 	}
 
 	public List<Car> getAllElectricCars() {
-		List<Car> cars = getAllCars();
-
-		if (cars.size() == 0) {
-			return Collections.emptyList();
-		}
-
-		List<Car> electricCars = new ArrayList<>();
-
-		for (Car car : cars) {
-			if (car.isElectric()) {
-				electricCars.add(car);
-			}
-		}
+		List<Car> electricCars = getAllCars()
+				.stream()
+				.filter(car -> car.isElectric())
+				.collect(Collectors.toList());
 
 		return electricCars;
 	}
